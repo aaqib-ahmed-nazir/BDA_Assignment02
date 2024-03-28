@@ -1,3 +1,6 @@
 Dataset.csv
 preprocessed_dataset.csv
-loadingDataset_and_preprocessing.ipynb
+TF_IDF.csv
+TF.csv
+Word_IDs.csv
+IDF.csv
