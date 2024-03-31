@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 import sys
 
-query = "dumb generation problems world"
+query = "world history is not the same as historical anarchism"
 
 tf_dict = {}  # Format: {('article_id', 'word'): TF}
 df_dict = {}  # Format: {'word': DF}
 weight_dict = {}  # Format: {('article_id', 'word'): TF-IDF}
 article_vectors = {}
 query_vector = {}
-similarity = {}
+similarities = {}
 
 # Collect all TF and DF values
 for line in sys.stdin:
@@ -41,14 +41,13 @@ for term in query.split():
 
 # calculate the cosine similarity between the query vector and each article vector
 for article_id, vector in article_vectors.items():
-    dot_product = sum(query_vector.get(word, 0) * tf_idf for word, tf_idf in vector.items())
-    query_magnitude = sum(tf_idf ** 2 for tf_idf in query_vector.values()) ** 0.5
-    article_magnitude = sum(tf_idf ** 2 for tf_idf in vector.values()) ** 0.5
-    cosine_similarity = dot_product / (query_magnitude * article_magnitude)
+    similarity = 0
+    for word, weight in query_vector.items():
+        similarity += weight * vector.get(word, 0)
 
     # save similarity score in dict
-    similarity[article_id] = cosine_similarity
+    similarities[article_id] = similarity
 
 # print the top 5 articles with the highest similarity scores
-for article_id, score in sorted(similarity.items(), key=lambda x: x[1], reverse=True)[:5]:
+for article_id, score in sorted(similarities.items(), key=lambda x: x[1], reverse=True)[:5]:
     print(f'Document {article_id}:{score}')
