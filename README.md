@@ -75,14 +75,6 @@ Ensure you have these software and libraries installed on your system before pro
    - Sort documents based on relevance scores.
    - Retrieve top-ranked documents matching the query.
 
-7. **Integration:**
-   - Integrate search engine into application using APIs.
-   - Customize functionality as needed.
-
-8. **Maintenance:**
-   - Regularly update index and document representations.
-   - Monitor performance and optimize resource usage.
-
 Utilize the Hadoop MapReduce Search Engine for efficient indexing, querying, and retrieval of information from large text corpora.
 
 ## Team:
