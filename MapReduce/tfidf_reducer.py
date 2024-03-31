@@ -2,14 +2,13 @@
 import sys
 import os
 
-query = os.environ.get("QUERY_STRING", "")
-print(query)
+# query = os.environ.get("QUERY_STRING", "")
 query = "does the world matter"
-# print(f"DEBUG: Query - {query}", file=sys.stderr)
 
-tf_dict = {}  # Format: {('article_id', 'word'): TF}
-df_dict = {}  # Format: {'word': DF}
-weight_dict = {}  # Format: {('article_id', 'word'): TF-IDF}
+# initialize dictionaries to store TF, DF, and weight values
+tf_dict = {}
+df_dict = {}
+weight_dict = {} 
 article_vectors = {}
 query_vector = {}
 similarities = {}
@@ -18,6 +17,7 @@ similarities = {}
 for line in sys.stdin:
     line_type, data = line.strip().split('\t', 1)
 
+    # storing the TF & IDF in the respective dictionaries
     if line_type == 'DF':
         word, df = data.split(':', 1)
         df_dict[word] = int(df)
@@ -26,10 +26,10 @@ for line in sys.stdin:
         key = (article_id, word)
         tf_dict[key] = int(tf)
 
-# After collecting all TF and DF values, calculate TF-IDF for each word in each document
+# calculating TF-IDF weights for each word in each document
 for (article_id, word), tf in tf_dict.items():
-    df = df_dict.get(word, 1)  # Default to 1 to avoid division by zero
-    tf_idf = tf / df  # Using TF/IDF formula as per your requirement
+    df = df_dict.get(word, 1)
+    tf_idf = tf / df
     weight_dict[(article_id, word)] = tf_idf
 
 # calculate the sparse vectors for each article
@@ -40,10 +40,10 @@ for (article_id, word), tf_idf in weight_dict.items():
 
 # calculate the sparse vector for the query
 for term in query.split():
-    df = df_dict.get(term, 1)  # Fallback to 1 if DF is not found
-    query_vector[term] = 1 / df
+    df = df_dict.get(term.lower(), 1)  # Fallback to 1 if DF is not found
+    query_vector[term.lower()] = 1 / df
 
-# calculate the cosine similarity between the query vector and each article vector
+# calculate the similarity between the query vector and each article vector
 for article_id, vector in article_vectors.items():
     similarity = 0
     for word, weight in query_vector.items():
@@ -52,6 +52,6 @@ for article_id, vector in article_vectors.items():
     # save similarity score in dict
     similarities[article_id] = similarity
 
-# print the top 5 articles with the highest similarity scores
+# output the top 5 articles with the highest similarity scores
 for article_id, score in sorted(similarities.items(), key=lambda x: x[1], reverse=True)[:5]:
     print(f'Document {article_id}:{score}')

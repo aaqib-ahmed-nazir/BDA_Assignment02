@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# search query
+# query="$1"
+
 # delete output directories
 hadoop fs -rm -r /output/step1_output
 hadoop fs -rm -r /output/step2_output
@@ -35,7 +38,8 @@ mapred streaming -files MapReduce/tfidf_mapper.py,MapReduce/tfidf_reducer.py \
     -input $output_step1/part-00000,$output_step2/part-00000 \
     -output $output_step3 \
     -mapper "python3 tfidf_mapper.py" \
-    -reducer "python3 tfidf_reducer.py" \
+    -reducer "python3 tfidf_reducer.py"
+    #-cmdenv QUERY_STRING="$query"
 
 # display search results
 echo "All MapReduce jobs completed successfully!"
