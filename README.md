@@ -13,7 +13,9 @@ To run the Hadoop MapReduce Search Engine, you'll need the following dependencie
 - **pandas** [(install)](https://pandas.pydata.org/docs/getting_started/install.html)
 - **numpy** [(install)](https://numpy.org/)
 - **langdetect** [(install)](https://pypi.org/project/langdetect/)
-  
+
+Dataset link: [Download Dataset](https://drive.google.com/file/d/1lGVGqzF5CNWaoV-zoz8_mlThvHwMgcsP/view?usp=sharing)
+
 Ensure you have these software and libraries installed on your system before proceeding.
 
 
