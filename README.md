@@ -92,6 +92,6 @@ Utilize the Hadoop MapReduce Search Engine for efficient indexing, querying, and
 
 Meet the dedicated individuals who contributed to this project:
 
-- **Aaqib Ahmed Nazir:** Discover Aaqib's projects on [GitHub](https://github.com/aaqib-ahmed-nazir)
 - **Ammar Khasif:** Check out Ammar's work on [GitHub](https://github.com/ammar-kashif).
 - **Arhum Khan:** Explore Arhum's contributions on [GitHub](https://github.com/Arhum-Khan10).
+- **Aaqib Ahmed Nazir:** Discover Aaqib's projects on [GitHub](https://github.com/aaqib-ahmed-nazir)
