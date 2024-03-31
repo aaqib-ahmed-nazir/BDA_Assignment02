@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 import sys
+import os
 
-query = "world history is not the same as historical anarchism"
+query = os.environ.get("QUERY_STRING", "")
+print(query)
+query = "does the world matter"
+# print(f"DEBUG: Query - {query}", file=sys.stderr)
 
 tf_dict = {}  # Format: {('article_id', 'word'): TF}
 df_dict = {}  # Format: {'word': DF}
