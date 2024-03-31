@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 import sys
 
+query = "dumb generation problems world"
+
 tf_dict = {}  # Format: {('article_id', 'word'): TF}
 df_dict = {}  # Format: {'word': DF}
 weight_dict = {}  # Format: {('article_id', 'word'): TF-IDF}
+article_vectors = {}
+query_vector = {}
+similarity = {}
 
+# Collect all TF and DF values
 for line in sys.stdin:
     line_type, data = line.strip().split('\t', 1)
 
@@ -23,13 +29,26 @@ for (article_id, word), tf in tf_dict.items():
     weight_dict[(article_id, word)] = tf_idf
 
 # calculate the sparse vectors for each article
-article_vectors = {}
 for (article_id, word), tf_idf in weight_dict.items():
     if article_id not in article_vectors:
         article_vectors[article_id] = {}
     article_vectors[article_id][word] = tf_idf
 
-# Output the sparse vectors
-for article_id, vector in article_vectors.items():
-    print(f'{article_id}:{vector}')
+# calculate the sparse vector for the query
+for term in query.split():
+    df = df_dict.get(term, 1)  # Fallback to 1 if DF is not found
+    query_vector[term] = 1 / df
 
+# calculate the cosine similarity between the query vector and each article vector
+for article_id, vector in article_vectors.items():
+    dot_product = sum(query_vector.get(word, 0) * tf_idf for word, tf_idf in vector.items())
+    query_magnitude = sum(tf_idf ** 2 for tf_idf in query_vector.values()) ** 0.5
+    article_magnitude = sum(tf_idf ** 2 for tf_idf in vector.values()) ** 0.5
+    cosine_similarity = dot_product / (query_magnitude * article_magnitude)
+
+    # save similarity score in dict
+    similarity[article_id] = cosine_similarity
+
+# print the top 5 articles with the highest similarity scores
+for article_id, score in sorted(similarity.items(), key=lambda x: x[1], reverse=True)[:5]:
+    print(f'Document {article_id}:{score}')
