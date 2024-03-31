@@ -7,18 +7,13 @@ This repository aims to develop a basic search engine utilizing Hadoop's MapRedu
 ## Dependencies:
 To run the Hadoop MapReduce Search Engine, you'll need the following dependencies:
 
-#### Apache Hadoop [(install)](https://hadoop.apache.org/releases.html)
-
-#### Python [(install)](https://www.python.org/downloads/)
-
-#### NLTK [(install)](https://www.nltk.org/)
-
-#### pandas [(install)](https://pandas.pydata.org/docs/getting_started/install.html)
-
-#### numpy [(install)](https://numpy.org/)
-
-#### langdetect [(install)](https://pypi.org/project/langdetect/)
-
+- **Apache Hadoop** [(install)](https://hadoop.apache.org/releases.html)
+- **Python** [(install)](https://www.python.org/downloads/)
+- **NLTK** [(install)](https://www.nltk.org/)
+- **pandas** [(install)](https://pandas.pydata.org/docs/getting_started/install.html)
+- **numpy** [(install)](https://numpy.org/)
+- **langdetect** [(install)](https://pypi.org/project/langdetect/)
+  
 Ensure you have these software and libraries installed on your system before proceeding.
 
 
